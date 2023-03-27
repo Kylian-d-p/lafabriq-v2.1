@@ -18,7 +18,7 @@ Pour exécuter et ouvrir le site dans un espace de production, il faut :
 - Lancer la commande `npm i` ou `npm install` depuis le dossier `/server`
 - Exécuter la commande `npm run start` depuis le dossier `/server`
 - Dans le dossier `/server`, créer un dossier `creations` qui contiendra toutes les images des produits du site
-- Dans le dossier `/server/creations`, créer un dossier `resized` qui contiendrai toutes les images des produits du site redimensionnées
+- Dans le dossier `/server/creations`, créer un dossier `resized` qui contiendra toutes les images des produits du site redimensionnées
 Le site sera alors disponible en local sur le port précisé dans le fichier `.env`
 Par exemple, si vous précisez le port 10000, vous pourrez accéder au site en entrant dans votre navigateur l'adresse `http://localhost:10000`
 
