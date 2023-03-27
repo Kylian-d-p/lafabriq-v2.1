@@ -1,0 +1,33 @@
+@use "../../variables.scss" as v;
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: v.$footer_height;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    p#footer-txt {
+        font-size: 20px;
+        font-weight: 700;
+        text-align: center;
+    }
+
+    img {
+        background: none;
+        width: 48px;
+        transition: .3s cubic-bezier(0, 1.29, 0.48, 1.75);
+        margin-bottom: 10px;
+    }
+
+    img:hover {
+        transform: scale(1.05);
+    }
+}
+
+#fake-footer {
+    padding-bottom: v.$footer_height;
+}

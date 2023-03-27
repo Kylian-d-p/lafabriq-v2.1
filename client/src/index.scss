@@ -1,0 +1,155 @@
+@use "./variables.scss" as v;
+
+@font-face {
+    font-family: 'FigTree';
+    src: url("../public/fonts/Figtree/Figtree-VariableFont_wght.ttf") format('truetype');
+}
+
+@font-face {
+    font-family: 'Akaya Kanadaka';
+    src: url("../public/fonts/Akaya_Kanadaka/AkayaKanadaka-Regular.ttf") format('truetype');
+}
+
+* {
+    transition: .3s cubic-bezier(0, -.07, 0, .99);
+    scrollbar-width: thin;
+    scrollbar-color: v.$scrollbar_color v.$background_color;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: v.$background_color;
+    border-radius: 5px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: v.$scrollbar_color;
+    border-radius: 5px;
+    border: none;
+}
+
+body {
+    background-color: v.$background_color;
+}
+
+p,
+img,
+q,
+a,
+span,
+button,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+input,
+textarea,
+label,
+legend,
+div {
+    color: black;
+    font-family: "FigTree";
+}
+
+a {
+    user-select: none;
+}
+
+p,
+img,
+button,
+a,
+q,
+span {
+    font-weight: 450;
+}
+
+div#root,
+body {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+}
+
+.other-font {
+    font-family: "Akaya Kanadaka";
+}
+
+img {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.main-div {
+    background-color: v.$main_color;
+    padding: 10px;
+    width: calc(100% - 80px);
+    margin: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0 0 15px v.$main_color_shadow;
+    max-width: 1000px;
+}
+
+.main-admin-div {
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    background-color: v.$main_color;
+    width: calc(100% - 20px);
+    margin: auto;
+    box-shadow: 0 0 15px v.$main_color_shadow;
+    border-radius: 10px;
+}
+
+.shadow {
+    box-shadow: 0 0 15px v.$main_color_shadow;
+}
+
+button {
+    cursor: pointer;
+    background-color: v.$button_color;
+}
+
+button:hover {
+    background-color: v.$button_hover_color;
+}
+
+button:active,
+a:active {
+    transform: scale(0.99);
+}
+
+li:active {
+    transform: scale(0.95);
+}
+
+input,
+textarea {
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 10px;
+}
+
+textarea {
+    resize: vertical;
+    transition: none;
+}
+
+button:disabled {
+    opacity: .5;
+}
+
+@media all and (max-width: 550px) {
+    .main-div {
+        width: calc(100% - 40px);
+    }
+}

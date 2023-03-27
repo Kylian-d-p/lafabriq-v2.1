@@ -1,0 +1,90 @@
+@use "../../variables.scss" as v;
+
+#product {
+    .product-infos-container {
+        display: flex;
+        flex-direction: row;
+
+        .product-carousel-container {
+            width: calc(50% - 20px);
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .product-infos {
+            width: 50%;
+
+            h1.product-title {
+                margin: 15px;
+            }
+
+            h2.product-price {
+                margin: 10px;
+            }
+
+            p.product-description {
+                margin: 10px;
+                font-size: 20px;
+            }
+
+            p.product-availability {
+                margin: 10px;
+                font-size: 17px;
+                font-weight: 600;
+            }
+
+            p.product-availability.available {
+                color: v.$green_color
+            }
+
+            p.product-availability.not-available {
+                color: v.$red_color;
+            }
+
+            p.product-contact-info {
+                margin: 10px;
+
+                a {
+                    text-decoration: underline;
+                }
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            button.view-more-product {
+                margin: 10px;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                line-height: 1;
+                box-shadow: 0 0 10px v.$main_color_shadow;
+            }
+
+            button.view-more-product:hover {
+                svg {
+                    transform: translateX(1.5px)
+                }
+            }
+        }
+    }
+}
+
+@media all and (max-width: 800px) {
+    #product {
+        .product-infos-container {
+            flex-direction: column;
+
+            .product-carousel-container {
+                width: calc(100% - 20px);
+            }
+
+            .product-infos {
+                width: 100%;
+            }
+        }
+    }
+}

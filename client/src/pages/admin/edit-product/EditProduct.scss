@@ -1,0 +1,65 @@
+$field_max_width: 700px;
+@use "../../../variables.scss" as v;
+
+div#admin-product {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(100% - 20px);
+    margin: 5px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    >input,
+    >textarea {
+        margin: 5px;
+        width: calc(100% - 30px);
+        max-width: $field_max_width;
+    }
+
+    >.checkbox-container {
+        display: flex;
+        align-items: center;
+        margin: 5px;
+        width: calc(100% - 10px);
+        max-width: $field_max_width;
+    }
+
+    >.category-container {
+        display: flex;
+        align-items: center;
+        width: calc(100% - 30px);
+        max-width: $field_max_width;
+
+        >div {
+            flex: 1;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+    }
+
+    >.creation-upload-container {
+        max-width: $field_max_width;
+        width: calc(100% - 30px);
+    }
+
+    >button.update-product {
+        border: none;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px;
+    }
+
+    h1 {
+        width: 100%;
+        text-align: center;
+    }
+
+    >p {
+        color: v.$red-color;
+        max-width: 90%;
+        margin: auto;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}

@@ -1,0 +1,31 @@
+@use "../../variables.scss" as v;
+
+.custom-checkbox-container {
+    input {
+        display: none;
+    }
+
+    .custom-checkbox {
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        border-radius: 5px;
+        background-color: v.$checkbox_color;
+        box-shadow: 0 0 5px v.$main_color_shadow;
+        margin: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        svg {
+            display: block;
+            width: 0;
+        }
+    }
+
+    .custom-checkbox.custom-checkbox-checked {
+        svg {
+            width: 100%;
+        }
+    }
+}

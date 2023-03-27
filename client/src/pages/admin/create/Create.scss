@@ -1,0 +1,78 @@
+@use "../../../variables.scss" as v;
+$field_max_width: 700px;
+
+#admin-create {
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+
+    div.fields {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        button.create-article {
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+        }
+
+        p.errorText {
+            color: v.$red_color;
+            max-width: 90%;
+            margin: auto;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"],
+        textarea {
+            font-size: 16px;
+            width: calc(100% - 40px);
+            max-width: calc($field_max_width - 20px);
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        div.checkbox-container {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            width: calc(100% - 20px);
+            max-width: $field_max_width;
+
+            label {
+                margin-left: 5px;
+                cursor: pointer;
+                font-weight: 600;
+            }
+        }
+
+        div.category-container {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            width: calc(100% - 20px);
+            max-width: $field_max_width;
+            line-height: 1;
+
+            .category-select {
+                flex: 1
+            }
+
+            p {
+                margin-right: 5px;
+            }
+        }
+
+        div.create-upload-container {
+            width: calc(100% - 10px);
+            max-width: calc($field_max_width);
+            margin-bottom: 10px;
+        }
+    }
+}

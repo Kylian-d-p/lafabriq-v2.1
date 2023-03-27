@@ -1,0 +1,39 @@
+@use "../../../../variables.scss" as v;
+
+nav#admin-nav {
+    width: 100%;
+    z-index: 100;
+    position: relative;
+    width: calc(100% - 20px);
+    margin: auto;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    >ul {
+        display: flex;
+        align-items: center;
+        list-style: none;
+        padding: 0;
+        width: 100%;
+        justify-content: space-evenly;
+        margin: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        >li {
+
+            >a {
+                text-decoration: none;
+
+                >h2 {
+                    margin: 0;
+                    font-weight: 600;
+                }
+
+                >h2.active {
+                    font-weight: 900;
+                }
+            }
+        }
+    }
+}

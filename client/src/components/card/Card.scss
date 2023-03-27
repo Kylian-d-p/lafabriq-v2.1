@@ -1,0 +1,105 @@
+@use "../../variables.scss" as v;
+
+.card {
+    max-width: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, .07);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .card-picture-container {
+        height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, .07);
+
+        .card-picture {
+            max-height: 100%;
+            max-width: 100%;
+            width: auto;
+        }
+    }
+
+    .card-picture {
+        width: 100%;
+    }
+
+    .card-title {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 30px;
+        width: 100%;
+        text-align: center;
+
+        svg {
+            max-width: calc(100% - 10px);
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    .card-price {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        width: 100%;
+        font-size: 25px;
+
+        svg {
+            max-width: calc(100% - 10px);
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+
+    .card-legend {
+        text-align: center;
+        width: 100%;
+    }
+
+    .card-legend.available {
+        color: v.$green_color;
+    }
+
+    .card-legend.not-available {
+        color: v.$red_color;
+    }
+
+    .view-product-container {
+        text-decoration: none;
+
+        .view-product {
+            width: 100%;
+            border: none;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 0;
+        }
+
+        div.view-product {
+            background-color: v.$button_color;
+        }
+
+        .view-product.active:hover svg.arrow-right {
+            transform: translateX(1.5px);
+        }
+
+        svg {
+            max-width: calc(100% - 10px);
+            margin-left: 5px;
+            margin-right: 5px;
+        }
+    }
+}
+
+.card:hover {
+    transform: scale(101%);
+}

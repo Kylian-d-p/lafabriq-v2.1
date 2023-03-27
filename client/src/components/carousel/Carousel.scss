@@ -1,0 +1,103 @@
+@use "../../variables.scss" as v;
+
+$carousel_max_height: calc(100vh - 100px - v.$navbar_height);
+
+.carousel-container {
+    position: relative;
+
+    .arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) scale(1);
+        font-size: 35px;
+        background-color: #ffffffd0;
+        border-radius: 50%;
+        padding: 5px;
+        cursor: pointer;
+        z-index: 10;
+    }
+
+    .arrow:hover {
+        background-color: #fff;
+    }
+
+    .arrow:active {
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    .arrow.arrow-back {
+        left: 5px;
+    }
+
+    .arrow.arrow-forward {
+        right: 5px;
+    }
+
+    .arrow.arrow-disabled {
+        opacity: .2;
+        cursor: not-allowed;
+    }
+
+
+    .carousel {
+        scrollbar-width: 0;
+        scrollbar-color: v.$scrollbar_color v.$background_color;
+        scroll-snap-type: x mandatory;
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        align-items: center;
+        max-height: $carousel_max_height;
+        width: 100%;
+        background-color: rgba(0, 0, 0, .1);
+        border-radius: 5px;
+        user-select: none;
+        scroll-behavior: smooth;
+        position: relative;
+
+        .slide {
+            scroll-snap-align: start;
+            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-height: $carousel_max_height;
+
+            .slide-image {
+                max-width: 100%;
+                max-height: $carousel_max_height;
+                width: auto;
+            }
+        }
+    }
+
+
+    .carousel::-webkit-scrollbar {
+        width: 0;
+        height: 0;
+    }
+
+    .carousel::-webkit-scrollbar-track {
+        width: 0;
+        height: 0;
+    }
+
+    .carousel::-webkit-scrollbar-thumb {
+        border: none;
+        width: 0;
+        height: 0;
+    }
+}
+
+@media all and (max-width: 350px) {
+    .carousel-container {
+        .carousel {
+            .arrow {
+                font-size: 25px;
+            }
+        }
+    }
+}
