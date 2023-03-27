@@ -24,6 +24,6 @@ Par exemple, si vous précisez le port 10000, vous pourrez accéder au site en e
 
 Pour tester le site, vous pouvez entrer les informations d'une base de donnée mysql locale dans le fichier.env<br/>
 Il est recommandé d'avoir phpmyadmin d'installé (facile avec <a href="https://www.uwamp.com/fr/">UwAmp</a>) pour importer dans cette base de donnée le fichier test_bdd.sql qui vous créera des articles et des catégories afin de voir comment se comporte le site<br/>
-Vous pouvez téléchargez quelques images depuis <a href="https://drive.google.com/drive/folders/1Fp1eWNrcE1NJ9v21elNhOHtJmsBSMCwK?usp=share_link">ce lien</a> à placer dans le dossier `/server/creations`
+Vous pouvez télécharger quelques images depuis <a href="https://drive.google.com/drive/folders/1Fp1eWNrcE1NJ9v21elNhOHtJmsBSMCwK?usp=share_link">ce lien</a> à placer dans le dossier `/server/creations`
 
 Pour accéder à l'interface d'administration, accédez à l'adresse `http://localhost:PORT/admin-lf` et entrez les identifiants indiqués dans le fichier `.env`
