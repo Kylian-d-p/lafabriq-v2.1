@@ -12,11 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __importDefault(require("../../server"));
+const server_1 = __importDefault(require("../server"));
 const mysql_1 = __importDefault(require("mysql"));
 const fs_1 = require("fs");
 const path_1 = __importDefault(require("path"));
-const globalFunc_1 = require("../../globalFunc");
+const globalFunc_1 = require("../globalFunc");
 function insertProduct(title, available, price, category, description, pictures) {
     server_1.default.db.query(`INSERT INTO products(title, available, price, category, description) VALUES (${mysql_1.default.escape(title)}, ${mysql_1.default.escape(available)}, ${mysql_1.default.escape(price)}, ${mysql_1.default.escape(category)}, ${mysql_1.default.escape(description.replace(/\n/g, "<br/>"))})`, (err, result) => __awaiter(this, void 0, void 0, function* () {
         for (var picture of pictures) {

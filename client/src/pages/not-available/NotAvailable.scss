@@ -1,0 +1,18 @@
+div#NotAvailable {
+    position: fixed;
+    top: 0;
+    left: 5px;
+    width: calc(100% - 10px);
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+
+    >img {
+        border-radius: 15px;
+    }
+}

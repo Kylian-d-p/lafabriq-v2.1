@@ -3,9 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __importDefault(require("../../server"));
+const server_1 = __importDefault(require("../server"));
 const mysql_1 = __importDefault(require("mysql"));
-const globalFunc_1 = require("../../globalFunc");
+const globalFunc_1 = require("../globalFunc");
 function getProduct(req, res) {
     if (typeof req.body.id == "string") {
         var final_result = {};

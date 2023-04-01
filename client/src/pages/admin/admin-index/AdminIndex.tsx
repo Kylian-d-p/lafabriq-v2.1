@@ -1,6 +1,7 @@
 import "./AdminIndex.scss"
 import { ChangeEvent, FormEvent, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
+import v from "../../../globalVariables"
 
 export default function AdminIndex() {
     const [username, setusername] = useState<string>("")
@@ -25,7 +26,7 @@ export default function AdminIndex() {
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setlogging(true)
-        fetch("/admin-login", {
+        fetch(v.serverUrl + "admin-login", {
             method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({
                 username,
                 password

@@ -4,6 +4,7 @@ import Checkbox from "../../../components/checkbox/Checkbox"
 import CreationUpload from "../components/creation-upload/CreationUpload"
 import CheckAdminConnected from "../CheckAdminConnected"
 import Select from "react-select/creatable"
+import v from "../../../globalVariables"
 
 interface categoriesOptions {
     label: string,
@@ -25,7 +26,7 @@ export default function Create() {
     const [newCategoryConfirmed, setnewCategoryConfirmed] = useState<boolean>(false)
 
     useEffect(() => {
-        fetch("/getAdminCategories", { method: "POST" }).then(async (res) => {
+        fetch(v.serverUrl + "getAdminCategories", { method: "POST" }).then(async (res) => {
             res.json().then((response) => {
                 var boutiquesTemp = []
                 for (const category of response) {
@@ -66,7 +67,7 @@ export default function Create() {
                     if (price > 0) {
                         if (pictures.length >= 1) {
                             if (description || noDescriptionConfirmed) {
-                                fetch("/createProducts", {
+                                fetch(v.serverUrl + "createProducts", {
                                     method: "POST",
                                     headers: { "Content-type": "application/json" },
                                     body: JSON.stringify({

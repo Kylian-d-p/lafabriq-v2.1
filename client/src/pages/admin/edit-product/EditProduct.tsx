@@ -4,6 +4,7 @@ import "./EditProduct.scss"
 import CreationUpload from "../components/creation-upload/CreationUpload"
 import Checkbox from "../../../components/checkbox/Checkbox"
 import Select from "react-select/creatable"
+import v from "../../../globalVariables"
 
 export default function EditProduct() {
     const params = useParams()
@@ -25,7 +26,7 @@ export default function EditProduct() {
 
     useEffect(() => {
         setcategoriesLoaded(false)
-        fetch("/getAdminCategories", { method: "POST" }).then(async (res) => {
+        fetch(v.serverUrl + "getAdminCategories", { method: "POST" }).then(async (res) => {
             res.json().then((response) => {
                 var boutiquesTemp = []
                 for (const category of response) {
@@ -35,7 +36,7 @@ export default function EditProduct() {
                 setcategoriesLoaded(true)
             })
         })
-        fetch("/getProduct", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "id": params.id }) }).then((res) => {
+        fetch(v.serverUrl + "getProduct", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "id": params.id }) }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     settitle(response.title)
@@ -79,7 +80,7 @@ export default function EditProduct() {
                     if (price > 0) {
                         if (pictures.length >= 1) {
                             if (description || noDescriptionConfirmed) {
-                                fetch("/updateProducts", {
+                                fetch(v.serverUrl + "updateProducts", {
                                     method: "POST",
                                     headers: { "Content-type": "application/json" },
                                     body: JSON.stringify({

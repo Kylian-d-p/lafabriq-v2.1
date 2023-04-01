@@ -16,7 +16,7 @@ const crypto_1 = __importDefault(require("crypto"));
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const sharp_1 = __importDefault(require("sharp"));
-const globalFunc_1 = require("../../globalFunc");
+const globalFunc_1 = require("../globalFunc");
 function uploadCreations(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         if (!Number.isNaN(req.headers["content-length"])) {

@@ -1,6 +1,7 @@
 import "./CreationUpload.scss"
 import { useRef, ChangeEvent, useState } from "react"
 import { MdClose, MdCheck, MdDeleteForever } from "react-icons/md"
+import v from "../../../../globalVariables"
 
 interface CreationUploadProps {
     pictures: Array<string>;
@@ -33,7 +34,7 @@ export default function CreationUpload(props: CreationUploadProps) {
         })
         setuploading(true)
 
-        fetch('/uploadCreation', {
+        fetch(v.serverUrl + 'uploadCreation', {
             method: 'POST',
             body: data,
         }).then((res) => {
@@ -65,7 +66,7 @@ export default function CreationUpload(props: CreationUploadProps) {
 
     const handleFileSelectionClick = () => {
         document.getElementById("files-already-uploaded-container")?.classList.add("opened")
-        fetch("/getAllPictures", { method: "POST" }).then((res) => {
+        fetch(v.serverUrl + "getAllPictures", { method: "POST" }).then((res) => {
             if (res.status === 200) {
                 setuploadedFilesError(false)
                 res.json().then((response) => {

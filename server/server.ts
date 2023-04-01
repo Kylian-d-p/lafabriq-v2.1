@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from "express"
 import dotenv from "dotenv"
 import getProducts from "./controllers/getProducts"
-import path from "path"
+import fs from "fs"
 import mysql from "mysql"
 import getCategories from "./controllers/getCategories"
 import getProduct from "./controllers/getProduct"
@@ -20,6 +20,8 @@ import createProducts from "./controllers/createProduct"
 import updateProducts from "./controllers/updateProducts"
 import getAdminCategories from "./controllers/getAdminCategories"
 import deleteProduct from "./controllers/deleteProduct"
+import cors from "cors"
+import https from "https"
 import { log } from "./globalFunc"
 const storage = multer.memoryStorage()
 const imageUpload = multer({ storage })
@@ -51,6 +53,7 @@ db.connect(function (err) {
     log(`Connecté avec succès à la base de données ${DB_NAME}`, false)
 })
 
+app.use(cors())
 app.use(express.json())
 app.use(session({
     secret: SECRET_SESSION,
@@ -58,13 +61,6 @@ app.use(session({
     saveUninitialized: true
 }))
 app.use("/images/creations/", express.static("creations/"))
-
-const root = path.join(__dirname, '../../client/build')
-app.use(express.static(root));
-app.get("*", (req, res) => {
-    res.sendFile('index.html', { root });
-})
-
 
 app.post("/getProducts", getProducts)
 app.post("/getCategories", getCategories)
@@ -79,13 +75,30 @@ app.post("/createProducts", requireAdmin, createProducts)
 app.post("/updateProducts", requireAdmin, updateProducts)
 app.post("/getAdminCategories", requireAdmin, getAdminCategories)
 app.post("/deleteProduct", requireAdmin, deleteProduct)
+app.post("/apiAvailable", (req: Request, res: Response) => {
+    res.status(200).send("API disponible")
+})
 
 app.post("*", (req: Request, res: Response) => {
     res.status(404).send("Introuvable")
 })
 
-app.listen(PORT, () => {
-    log(`Le serveur écoute sur le port ${PORT}`, false)
-})
+// https server
+if (process.env.ENVIRONMENT === "prod") {
+    const options = {
+        key: fs.readFileSync(process.env.SSL_KEY_PATH),
+        cert: fs.readFileSync(process.env.SSL_CERT_PATH)
+    }
+
+    https.createServer(options, app).listen(PORT, () => {
+        log(`Serveur HTTPS démarré sur le port ${PORT}`, false)
+    })
+} else {
+    app.listen(PORT, () => {
+        log(`Serveur HTTP démarré sur le port ${PORT}`, false)
+    })
+}
+
+
 
 export default { db, sharp }

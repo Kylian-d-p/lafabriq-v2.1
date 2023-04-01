@@ -1,10 +1,11 @@
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import v from "../../globalVariables"
 
 export default function CheckAdminConnected() {
     const navigate = useNavigate()
     useEffect(() => {
-        fetch("/isAdminConnected", { method: "POST", "headers": { "Content-type": "application/json" } }).then((res) => {
+        fetch(v.serverUrl + "isAdminConnected", { method: "POST", "headers": { "Content-type": "application/json" } }).then((res) => {
             if (res.status !== 200) {
                 navigate("/404")
             }

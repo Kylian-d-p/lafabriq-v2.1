@@ -12,9 +12,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __importDefault(require("../../server"));
+const server_1 = __importDefault(require("../server"));
 const mysql_1 = __importDefault(require("mysql"));
-const globalFunc_1 = require("../../globalFunc");
+const globalFunc_1 = require("../globalFunc");
 function updateInfos(id, title, available, price, category, description, pictures) {
     server_1.default.db.query(`UPDATE products SET title = ${mysql_1.default.escape(title)}, available = ${mysql_1.default.escape(available)}, price = ${mysql_1.default.escape(price)}, category = ${mysql_1.default.escape(category)}, description = ${mysql_1.default.escape(description)} WHERE id = ${mysql_1.default.escape(id)}`);
     server_1.default.db.query(`SELECT id, picture_path FROM products_pictures WHERE product_id = ${mysql_1.default.escape(id)}`, (err, result) => {

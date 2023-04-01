@@ -4,6 +4,7 @@ import "./Product.scss"
 import Carousel from "../../components/carousel/Carousel";
 import { MdArrowRight } from "react-icons/md";
 import { Link } from "react-router-dom";
+import v from "../../globalVariables"
 
 interface getProductRes {
     title: string;
@@ -27,7 +28,7 @@ export default function Product() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch("/getProduct", { method: "POST", body: JSON.stringify({ "id": params.id }), headers: { 'Content-Type': 'application/json' } }).then((res) => {
+        fetch(v.serverUrl + "getProduct", { method: "POST", body: JSON.stringify({ "id": params.id }), headers: { 'Content-Type': 'application/json' } }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response: getProductRes) => {
                     var final_pictures = []

@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function adminLogin(req, res) {
     if (typeof req.body.username === "string" && typeof req.body.password === "string") {
-        if (req.body.username === "lafabriq-admin" && req.body.password === "Klm1944Klm") {
+        if (req.body.username === process.env.ADMIN_USERNAME && req.body.password === process.env.ADMIN_PASSWORD) {
             req.session.adminConnected = true;
             res.status(200).send();
         }

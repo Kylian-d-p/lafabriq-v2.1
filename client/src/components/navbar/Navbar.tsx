@@ -2,13 +2,14 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import "./Navbar.scss"
 import BurgerMenu from "../burger-menu/BurgerMenu"
+import v from "../../globalVariables"
 
 export default function HeadBar() {
     const [boutiques, setboutiques] = useState<Array<Array<string>>>([])
     const [burgerMenuActive, setburgerMenuActive] = useState(false)
 
     useEffect(() => {
-        fetch("/getCategories", { method: "POST" }).then(async (res) => {
+        fetch(v.serverUrl + "getCategories", { method: "POST" }).then(async (res) => {
             res.json().then((response) => {
                 var boutiquesTemp = []
                 for (const category of response) {

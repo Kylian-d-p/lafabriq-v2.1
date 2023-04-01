@@ -5,26 +5,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
-const getProducts_1 = __importDefault(require("./controllers/getProducts/getProducts"));
-const path_1 = __importDefault(require("path"));
+const getProducts_1 = __importDefault(require("./controllers/getProducts"));
+const fs_1 = __importDefault(require("fs"));
 const mysql_1 = __importDefault(require("mysql"));
-const getCategories_1 = __importDefault(require("./controllers/getCategories/getCategories"));
-const getProduct_1 = __importDefault(require("./controllers/getProduct/getProduct"));
-const getThreeAvailableProducts_1 = __importDefault(require("./controllers/getThreeAvailableProducts/getThreeAvailableProducts"));
-const getCategoryDisplayName_1 = __importDefault(require("./controllers/getCategoryDisplayName/getCategoryDisplayName"));
+const getCategories_1 = __importDefault(require("./controllers/getCategories"));
+const getProduct_1 = __importDefault(require("./controllers/getProduct"));
+const getThreeAvailableProducts_1 = __importDefault(require("./controllers/getThreeAvailableProducts"));
+const getCategoryDisplayName_1 = __importDefault(require("./controllers/getCategoryDisplayName"));
 const express_session_1 = __importDefault(require("express-session"));
-const adminLogin_1 = __importDefault(require("./controllers/adminLogin/adminLogin"));
-const isAdminConnected_1 = __importDefault(require("./controllers/isAdminConnected/isAdminConnected"));
+const adminLogin_1 = __importDefault(require("./controllers/adminLogin"));
+const isAdminConnected_1 = __importDefault(require("./controllers/isAdminConnected"));
 const sharp_1 = __importDefault(require("sharp"));
 const multer_1 = __importDefault(require("multer"));
-const uploadCreations_1 = __importDefault(require("./controllers/uploadCreations/uploadCreations"));
+const uploadCreations_1 = __importDefault(require("./controllers/uploadCreations"));
 const checkIfImage_1 = __importDefault(require("./middlewares/checkIfImage"));
-const getAllPictures_1 = __importDefault(require("./controllers/getAllPictures/getAllPictures"));
+const getAllPictures_1 = __importDefault(require("./controllers/getAllPictures"));
 const requireAdmin_1 = __importDefault(require("./middlewares/requireAdmin"));
-const createProduct_1 = __importDefault(require("./controllers/createProduct/createProduct"));
-const updateProducts_1 = __importDefault(require("./controllers/updateProducts/updateProducts"));
-const getAdminCategories_1 = __importDefault(require("./controllers/getAdminCategories/getAdminCategories"));
-const deleteProduct_1 = __importDefault(require("./controllers/deleteProduct/deleteProduct"));
+const createProduct_1 = __importDefault(require("./controllers/createProduct"));
+const updateProducts_1 = __importDefault(require("./controllers/updateProducts"));
+const getAdminCategories_1 = __importDefault(require("./controllers/getAdminCategories"));
+const deleteProduct_1 = __importDefault(require("./controllers/deleteProduct"));
+const cors_1 = __importDefault(require("cors"));
+const https_1 = __importDefault(require("https"));
 const globalFunc_1 = require("./globalFunc");
 const storage = multer_1.default.memoryStorage();
 const imageUpload = (0, multer_1.default)({ storage });
@@ -50,6 +52,7 @@ db.connect(function (err) {
     }
     (0, globalFunc_1.log)(`Connecté avec succès à la base de données ${DB_NAME}`, false);
 });
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use((0, express_session_1.default)({
     secret: SECRET_SESSION,
@@ -57,11 +60,6 @@ app.use((0, express_session_1.default)({
     saveUninitialized: true
 }));
 app.use("/images/creations/", express_1.default.static("creations/"));
-const root = path_1.default.join(__dirname, '../../client/build');
-app.use(express_1.default.static(root));
-app.get("*", (req, res) => {
-    res.sendFile('index.html', { root });
-});
 app.post("/getProducts", getProducts_1.default);
 app.post("/getCategories", getCategories_1.default);
 app.post("/getProduct", getProduct_1.default);
@@ -75,10 +73,25 @@ app.post("/createProducts", requireAdmin_1.default, createProduct_1.default);
 app.post("/updateProducts", requireAdmin_1.default, updateProducts_1.default);
 app.post("/getAdminCategories", requireAdmin_1.default, getAdminCategories_1.default);
 app.post("/deleteProduct", requireAdmin_1.default, deleteProduct_1.default);
+app.post("/apiAvailable", (req, res) => {
+    res.status(200).send("API disponible");
+});
 app.post("*", (req, res) => {
     res.status(404).send("Introuvable");
 });
-app.listen(PORT, () => {
-    (0, globalFunc_1.log)(`Le serveur écoute sur le port ${PORT}`, false);
-});
+// https server
+if (process.env.ENVIRONMENT === "prod") {
+    const options = {
+        key: fs_1.default.readFileSync(process.env.SSL_KEY_PATH),
+        cert: fs_1.default.readFileSync(process.env.SSL_CERT_PATH)
+    };
+    https_1.default.createServer(options, app).listen(PORT, () => {
+        (0, globalFunc_1.log)(`Serveur HTTPS démarré sur le port ${PORT}`, false);
+    });
+}
+else {
+    app.listen(PORT, () => {
+        (0, globalFunc_1.log)(`Serveur HTTP démarré sur le port ${PORT}`, false);
+    });
+}
 exports.default = { db, sharp: sharp_1.default };

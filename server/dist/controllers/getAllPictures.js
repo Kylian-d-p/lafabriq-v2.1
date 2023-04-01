@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
-const globalFunc_1 = require("../../globalFunc");
+const globalFunc_1 = require("../globalFunc");
 function getAllPictures(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
         const folderPath = path_1.default.join(__dirname, '../../../creations/');

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { MdArrowRight, MdClose } from "react-icons/md";
 import { useState } from "react";
 import "./AdminCard.scss"
+import v from "../../../../globalVariables"
 
 interface CardProps {
     price: number;
@@ -23,7 +24,7 @@ export default function AdminCard(props: CardProps) {
     const handleDeleteConfirm = () => {
         seterrorText("")
         setdeletingProduct(true)
-        fetch("/deleteProduct", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "id": props.id }) }).then((res) => {
+        fetch(v.serverUrl + "deleteProduct", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "id": props.id }) }).then((res) => {
             setdeletingProduct(false)
             if (res.status === 200) {
                 handleDeleteClick()

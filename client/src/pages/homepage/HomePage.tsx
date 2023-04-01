@@ -3,6 +3,7 @@ import Card from '../../components/card/Card';
 import './HomePage.scss';
 import { MdArrowRight, MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { useEffect, useState } from 'react';
+import v from "../../globalVariables"
 
 interface getThreeAvailableProductsRes {
     id: number;
@@ -47,7 +48,7 @@ export default function HomePage() {
         }
     }, [])
     useEffect(() => {
-        fetch("/getThreeAvailableProducts", { method: "POST", headers: { "Content-type": "application/json" } }).then((res) => {
+        fetch(v.serverUrl + "getThreeAvailableProducts", { method: "POST", headers: { "Content-type": "application/json" } }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     setproducts(response)
@@ -88,7 +89,7 @@ export default function HomePage() {
                     <p className="homepage-text">Retrouvez aussi des objets et du mobilier vintage, rare ou d'exception.</p>
                 </div>
             </div>
-            <h2 id="homepage--text" className="other-font">Lorem Ipsum</h2>
+            <h2 id="homepage--text" className="other-font">Découvrez notre boutique</h2>
             <div className="homepage-cards">
                 {products.map((product) => {
                     return (

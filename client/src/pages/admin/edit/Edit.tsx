@@ -3,6 +3,7 @@ import "./Edit.scss"
 import { useEffect, useState } from "react"
 import Select from "react-select"
 import AdminCard from "../components/admin-card/AdminCard"
+import v from "../../../globalVariables"
 
 export default function Edit() {
     const [products, setproducts] = useState<Array<{ id: number, title: string, available: boolean, price: number, first_picture: string }>>([])
@@ -11,7 +12,7 @@ export default function Edit() {
     const [productsLoading, setproductsLoading] = useState<boolean>(false)
 
     useEffect(() => {
-        fetch("/getCategories", { method: "POST" }).then((res) => {
+        fetch(v.serverUrl + "getCategories", { method: "POST" }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     var catTemp: Array<{ value: string, label: string }> = []
@@ -27,7 +28,7 @@ export default function Edit() {
 
     const handleCategoryChange = (e: any) => {
         setproductsLoading(true)
-        fetch("/getProducts", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "category": e.value }) }).then((res) => {
+        fetch(v.serverUrl + "getProducts", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "category": e.value }) }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     setproductsLoading(false)

@@ -9,6 +9,9 @@ declare global {
             SECRET_SESSION: string;
             ADMIN_USERNAME: string;
             ADMIN_PASSWORD: string;
+            ENVIRONMENT: "prod" | "dev";
+            SSL_KEY_PATH: string;
+            SSL_CERT_PATH: string;
         }
     }
 }
