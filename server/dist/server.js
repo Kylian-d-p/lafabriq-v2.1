@@ -52,12 +52,17 @@ db.connect(function (err) {
     }
     (0, globalFunc_1.log)(`Connecté avec succès à la base de données ${DB_NAME}`, false);
 });
-app.use((0, cors_1.default)());
+app.use((0, cors_1.default)({ credentials: true, origin: true }));
 app.use(express_1.default.json());
 app.use((0, express_session_1.default)({
     secret: SECRET_SESSION,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: false
+    }
 }));
 app.use("/images/creations/", express_1.default.static("creations/"));
 app.post("/getProducts", getProducts_1.default);

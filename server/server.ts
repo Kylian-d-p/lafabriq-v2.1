@@ -53,14 +53,20 @@ db.connect(function (err) {
     log(`Connecté avec succès à la base de données ${DB_NAME}`, false)
 })
 
-app.use(cors())
+app.use(cors({ credentials: true, origin: true }))
 app.use(express.json())
 app.use(session({
     secret: SECRET_SESSION,
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24 * 7,
+        httpOnly: false
+    }
 }))
 app.use("/images/creations/", express.static("creations/"))
+
 
 app.post("/getProducts", getProducts)
 app.post("/getCategories", getCategories)
@@ -98,7 +104,5 @@ if (process.env.ENVIRONMENT === "prod") {
         log(`Serveur HTTP démarré sur le port ${PORT}`, false)
     })
 }
-
-
 
 export default { db, sharp }
