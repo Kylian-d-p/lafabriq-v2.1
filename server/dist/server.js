@@ -52,7 +52,12 @@ db.connect(function (err) {
     }
     (0, globalFunc_1.log)(`Connecté avec succès à la base de données ${DB_NAME}`, false);
 });
-app.use((0, cors_1.default)({ credentials: true, origin: "https://la-fabriq.com" }));
+if (process.env.ENVIRONMENT === "prod") {
+    app.use((0, cors_1.default)({ credentials: true, origin: ["https://la-fabriq.com", "http://localhost:3000"] }));
+}
+else {
+    app.use((0, cors_1.default)({ credentials: true, origin: "http://localhost:3000" }));
+}
 app.use(express_1.default.json());
 app.use((0, express_session_1.default)({
     secret: SECRET_SESSION,
@@ -81,7 +86,7 @@ app.post("/deleteProduct", requireAdmin_1.default, deleteProduct_1.default);
 app.post("/apiAvailable", (req, res) => {
     res.status(200).send("API disponible");
 });
-app.post("*", (req, res) => {
+app.all("*", (req, res) => {
     res.status(404).send("Introuvable");
 });
 // https server

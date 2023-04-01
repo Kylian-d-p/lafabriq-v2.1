@@ -53,7 +53,11 @@ db.connect(function (err) {
     log(`Connecté avec succès à la base de données ${DB_NAME}`, false)
 })
 
-app.use(cors({ credentials: true, origin: "https://la-fabriq.com" }))
+if (process.env.ENVIRONMENT === "prod") {
+    app.use(cors({ credentials: true, origin: ["https://la-fabriq.com", "http://localhost:3000"] }))
+} else {
+    app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
+}
 app.use(express.json())
 app.use(session({
     secret: SECRET_SESSION,
@@ -85,7 +89,7 @@ app.post("/apiAvailable", (req: Request, res: Response) => {
     res.status(200).send("API disponible")
 })
 
-app.post("*", (req: Request, res: Response) => {
+app.all("*", (req: Request, res: Response) => {
     res.status(404).send("Introuvable")
 })
 
