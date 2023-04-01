@@ -49,7 +49,7 @@ export default function Products() {
             <div className="products-cards-container">
                 {products.length > 0 ? products.map((product) => {
                     return (
-                        <Card key={product.picturePath} price={product.price} available={product.available} picturePath={"/images/creations/resized/" + product.picturePath} name={product.name} id={product.id} />
+                        <Card key={product.picturePath} price={product.price} available={product.available} picturePath={v.serverUrl + "images/creations/resized/" + product.picturePath} name={product.name} id={product.id} />
                     )
                 }) : <><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /><CardSkeleton /></>}
             </div>

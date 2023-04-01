@@ -112,7 +112,7 @@ export default function CreationUpload(props: CreationUploadProps) {
                             return (
                                 <div className="preview-pictures-container" key={picture}>
                                     <MdDeleteForever className="delete" onClick={() => { handleDeleteClick(picture) }} />
-                                    <img key={picture} src={"/images/creations/resized/" + picture} alt="Previsualisation" />
+                                    <img key={picture} src={v.serverUrl + "images/creations/resized/" + picture} alt="Previsualisation" />
                                 </div>
                             )
                         })
@@ -132,7 +132,7 @@ export default function CreationUpload(props: CreationUploadProps) {
                                 uploadedFiles.map((file) => {
                                     return (
                                         <div className="image-uploaded-container" key={file} onClick={() => { handleUploadedPictureClick(file) }}>
-                                            <img src={"/images/creations/resized/" + file} alt="Illustration" className={"image-uploaded " + (props.pictures.indexOf(file) >= 0 ? "selected" : "")} />
+                                            <img src={v.serverUrl + "images/creations/resized/" + file} alt="Illustration" className={"image-uploaded " + (props.pictures.indexOf(file) >= 0 ? "selected" : "")} />
                                             <MdCheck className="checked" />
                                         </div>
                                     )

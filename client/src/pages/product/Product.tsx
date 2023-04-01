@@ -33,7 +33,7 @@ export default function Product() {
                 res.json().then((response: getProductRes) => {
                     var final_pictures = []
                     for (const picture of response.pictures) {
-                        final_pictures.push("/images/creations/" + picture)
+                        final_pictures.push(v.serverUrl + "images/creations/" + picture)
                     }
                     setpictures(final_pictures)
                     setproductTitle(response.title)

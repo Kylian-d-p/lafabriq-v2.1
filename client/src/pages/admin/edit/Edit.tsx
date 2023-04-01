@@ -51,7 +51,7 @@ export default function Edit() {
                         (products.length === 0 ? <h2 className="no-cat-selected">Sélectionnez une catégorie pour éditer les produits</h2> :
                             products.map((product) => {
                                 return (
-                                    <AdminCard key={product.id} picturePath={"/images/creations/resized/" + product.first_picture} price={product.price} available={product.available} name={product.title} id={product.id} />
+                                    <AdminCard key={product.id} picturePath={v.serverUrl + "images/creations/resized/" + product.first_picture} price={product.price} available={product.available} name={product.title} id={product.id} />
                                 )
                             })) :
                         <h2 className="no-cat-selected">Chargement en cours...</h2>

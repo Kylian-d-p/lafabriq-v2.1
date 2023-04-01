@@ -93,7 +93,7 @@ export default function HomePage() {
             <div className="homepage-cards">
                 {products.map((product) => {
                     return (
-                        <Card key={product.id} id={product.id} price={product.price} picturePath={"/images/creations/resized/" + product.first_picture} available={product.available} name={product.title} />
+                        <Card key={product.id} id={product.id} price={product.price} picturePath={v.serverUrl + "images/creations/resized/" + product.first_picture} available={product.available} name={product.title} />
                     )
                 })}
             </div>
