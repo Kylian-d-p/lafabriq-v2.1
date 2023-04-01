@@ -24,7 +24,7 @@ export default function AdminCard(props: CardProps) {
     const handleDeleteConfirm = () => {
         seterrorText("")
         setdeletingProduct(true)
-        fetch(v.serverUrl + "deleteProduct", { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "id": props.id }) }).then((res) => {
+        fetch(v.serverUrl + "deleteProduct", { method: "POST", credentials: "include", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "id": props.id }) }).then((res) => {
             setdeletingProduct(false)
             if (res.status === 200) {
                 handleDeleteClick()

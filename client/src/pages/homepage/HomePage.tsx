@@ -48,7 +48,7 @@ export default function HomePage() {
         }
     }, [])
     useEffect(() => {
-        fetch(v.serverUrl + "getThreeAvailableProducts", { method: "POST", headers: { "Content-type": "application/json" } }).then((res) => {
+        fetch(v.serverUrl + "getThreeAvailableProducts", { method: "POST", credentials: "include", headers: { "Content-type": "application/json" } }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     setproducts(response)

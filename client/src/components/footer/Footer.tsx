@@ -9,6 +9,7 @@ export default function Footer() {
                     <a href="https://www.facebook.com/profile.php?id=100088563820421" rel="noreferrer" target="_blank"><img src="/images/facebook.svg" alt="Facebook" /></a>
                     <a href="https://instagram.com/lafabriq_" rel="noreferrer" target="_blank"><img src="/images/instagram.svg" alt="Instagram" /></a>
                 </div>
+                <p id="realized-by">Site réalisé par <a href="https://kdprod.fr">KDProd'</a></p>
             </div>
             <div id="fake-footer"></div>
         </>

@@ -9,7 +9,7 @@ export default function HeadBar() {
     const [burgerMenuActive, setburgerMenuActive] = useState(false)
 
     useEffect(() => {
-        fetch(v.serverUrl + "getCategories", { method: "POST" }).then(async (res) => {
+        fetch(v.serverUrl + "getCategories", { method: "POST", credentials: "include" }).then(async (res) => {
             res.json().then((response) => {
                 var boutiquesTemp = []
                 for (const category of response) {

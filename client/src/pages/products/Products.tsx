@@ -23,7 +23,7 @@ export default function Products() {
     useEffect(() => {
         setdisplayName(params.category)
         setproducts([])
-        fetch(v.serverUrl + "getProducts", { method: "POST", body: JSON.stringify({ "category": params.category }), headers: { 'Content-Type': 'application/json' }, }).then((res) => {
+        fetch(v.serverUrl + "getProducts", { method: "POST", credentials: "include", body: JSON.stringify({ "category": params.category }), headers: { 'Content-Type': 'application/json' }, }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response: Array<getProductsRes>) => {
                     for (const product of response) {
@@ -32,7 +32,7 @@ export default function Products() {
                 })
             }
         })
-        fetch(v.serverUrl + "getCategoryDisplayName", { method: "POST", body: JSON.stringify({ "name": params.category }), headers: { "Content-Type": "application/json" } }).then((res: Response) => {
+        fetch(v.serverUrl + "getCategoryDisplayName", { method: "POST", credentials: "include", body: JSON.stringify({ "name": params.category }), headers: { "Content-Type": "application/json" } }).then((res: Response) => {
             if (res.status === 200) {
                 res.text().then((response: string) => {
                     setdisplayName(response)

@@ -19,7 +19,7 @@ export default function App() {
     const [apiAvailable, setapiAvailable] = useState<boolean>(false)
 
     useEffect(() => {
-        fetch(v.serverUrl + "apiAvailable", { method: "POST" }).then((res) => {
+        fetch(v.serverUrl + "apiAvailable", { method: "POST", credentials: "include" }).then((res) => {
             if (res.status === 200) {
                 setapiAvailable(true)
             }

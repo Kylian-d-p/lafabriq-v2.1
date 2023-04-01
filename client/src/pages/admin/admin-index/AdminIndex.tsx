@@ -27,7 +27,7 @@ export default function AdminIndex() {
         e.preventDefault()
         setlogging(true)
         fetch(v.serverUrl + "admin-login", {
-            method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify({
+            method: "POST", credentials: "include", headers: { "Content-type": "application/json" }, body: JSON.stringify({
                 username,
                 password
             })

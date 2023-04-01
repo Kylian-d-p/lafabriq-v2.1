@@ -35,7 +35,7 @@ export default function CreationUpload(props: CreationUploadProps) {
         setuploading(true)
 
         fetch(v.serverUrl + 'uploadCreation', {
-            method: 'POST',
+            method: 'POST', credentials: "include",
             body: data,
         }).then((res) => {
             setuploading(false)
@@ -66,7 +66,7 @@ export default function CreationUpload(props: CreationUploadProps) {
 
     const handleFileSelectionClick = () => {
         document.getElementById("files-already-uploaded-container")?.classList.add("opened")
-        fetch(v.serverUrl + "getAllPictures", { method: "POST" }).then((res) => {
+        fetch(v.serverUrl + "getAllPictures", { method: "POST", credentials: "include" }).then((res) => {
             if (res.status === 200) {
                 setuploadedFilesError(false)
                 res.json().then((response) => {
