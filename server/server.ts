@@ -53,7 +53,7 @@ db.connect(function (err) {
     log(`Connecté avec succès à la base de données ${DB_NAME}`, false)
 })
 
-app.use(cors({ credentials: true, origin: true }))
+app.use(cors({ credentials: true, origin: "https://la-fabriq.com" }))
 app.use(express.json())
 app.use(session({
     secret: SECRET_SESSION,

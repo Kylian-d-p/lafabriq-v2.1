@@ -52,7 +52,7 @@ db.connect(function (err) {
     }
     (0, globalFunc_1.log)(`Connecté avec succès à la base de données ${DB_NAME}`, false);
 });
-app.use((0, cors_1.default)({ credentials: true, origin: true }));
+app.use((0, cors_1.default)({ credentials: true, origin: "https://la-fabriq.com" }));
 app.use(express_1.default.json());
 app.use((0, express_session_1.default)({
     secret: SECRET_SESSION,
