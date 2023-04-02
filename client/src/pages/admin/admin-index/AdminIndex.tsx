@@ -27,14 +27,17 @@ export default function AdminIndex() {
         e.preventDefault()
         setlogging(true)
         fetch(v.serverUrl + "admin-login", {
-            method: "POST", credentials: "include", headers: { "Content-type": "application/json" }, body: JSON.stringify({
+            method: "POST", credentials: "include", mode: "cors", headers: { "Content-type": "application/json" }, body: JSON.stringify({
                 username,
                 password
             })
         }).then((res) => {
             setlogging(false)
             if (res.status === 200) {
-                navigate("/admin-lf/menu/nouvel-article")
+                res.json().then((res) => {
+                    localStorage.setItem("jwt", res)
+                    navigate("/admin-lf/menu/nouvel-article")
+                })
             } else {
                 res.text().then((response) => {
                     seterrorText(response)

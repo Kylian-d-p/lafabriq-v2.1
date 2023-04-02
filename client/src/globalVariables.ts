@@ -1,5 +1,5 @@
 const variables = {
-    "serverUrl": "http://localhost/"
+    "serverUrl": "http://api.kdprod.fr:3002/"
 }
 
 export default variables

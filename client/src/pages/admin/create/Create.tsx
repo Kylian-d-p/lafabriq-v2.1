@@ -26,7 +26,7 @@ export default function Create() {
     const [newCategoryConfirmed, setnewCategoryConfirmed] = useState<boolean>(false)
 
     useEffect(() => {
-        fetch(v.serverUrl + "getAdminCategories", { method: "POST", credentials: "include" }).then(async (res) => {
+        fetch(v.serverUrl + "getAdminCategories", { method: "POST", credentials: "include", mode: "cors", headers: { "Authorization": "Bearer " + localStorage.getItem("jwt") } }).then(async (res) => {
             res.json().then((response) => {
                 var boutiquesTemp = []
                 for (const category of response) {
@@ -68,8 +68,8 @@ export default function Create() {
                         if (pictures.length >= 1) {
                             if (description || noDescriptionConfirmed) {
                                 fetch(v.serverUrl + "createProducts", {
-                                    method: "POST", credentials: "include",
-                                    headers: { "Content-type": "application/json" },
+                                    method: "POST", credentials: "include", mode: "cors",
+                                    headers: { "Content-type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwt") },
                                     body: JSON.stringify({
                                         title,
                                         "available": !sold,

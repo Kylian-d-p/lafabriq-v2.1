@@ -12,7 +12,7 @@ export default function Edit() {
     const [productsLoading, setproductsLoading] = useState<boolean>(false)
 
     useEffect(() => {
-        fetch(v.serverUrl + "getCategories", { method: "POST", credentials: "include" }).then((res) => {
+        fetch(v.serverUrl + "getCategories", { method: "POST", credentials: "include", mode: "cors", headers: { "Authorization": "Bearer " + localStorage.getItem("jwt") } }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     var catTemp: Array<{ value: string, label: string }> = []
@@ -28,7 +28,7 @@ export default function Edit() {
 
     const handleCategoryChange = (e: any) => {
         setproductsLoading(true)
-        fetch(v.serverUrl + "getProducts", { method: "POST", credentials: "include", headers: { "Content-type": "application/json" }, body: JSON.stringify({ "category": e.value }) }).then((res) => {
+        fetch(v.serverUrl + "getProducts", { method: "POST", credentials: "include", mode: "cors", headers: { "Content-type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwt") }, body: JSON.stringify({ "category": e.value }) }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {
                     setproductsLoading(false)

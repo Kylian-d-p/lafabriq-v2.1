@@ -5,7 +5,7 @@ import v from "../../globalVariables"
 export default function CheckAdminConnected() {
     const navigate = useNavigate()
     useEffect(() => {
-        fetch(v.serverUrl + "isAdminConnected", { method: "POST", credentials: "include", "headers": { "Content-type": "application/json" } }).then((res) => {
+        fetch(v.serverUrl + "isAdminConnected", { method: "POST", credentials: "include", mode: "cors", "headers": { "Content-type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwt") } }).then((res) => {
             if (res.status !== 200) {
                 navigate("/404")
             }

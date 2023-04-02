@@ -7,7 +7,6 @@ import getCategories from "./controllers/getCategories"
 import getProduct from "./controllers/getProduct"
 import getThreeAvailableProducts from "./controllers/getThreeAvailableProducts"
 import getCategoryDisplayName from "./controllers/getCategoryDisplayName"
-import session from "express-session"
 import adminLogin from "./controllers/adminLogin"
 import isAdminConnected from "./controllers/isAdminConnected"
 import sharp from "sharp"
@@ -33,7 +32,6 @@ const MYSQL_HOST: string = process.env.MYSQL_HOST || ""
 const MYSQL_USER: string = process.env.MYSQL_USER || ""
 const MYSQL_PASSWORD: string = process.env.MYSQL_PASSWORD || ""
 const DB_NAME: string = process.env.DB_NAME || ""
-const SECRET_SESSION: string = process.env.SECRET_SESSION || ""
 
 const app: Express = express()
 
@@ -53,22 +51,13 @@ db.connect(function (err) {
     log(`Connecté avec succès à la base de données ${DB_NAME}`, false)
 })
 
+app.set("trust proxy", 1)
 if (process.env.ENVIRONMENT === "prod") {
-    app.use(cors({ credentials: true, origin: ["https://la-fabriq.com", "http://localhost:3000"] }))
+    app.use(cors({ credentials: true, origin: ["https://la-fabriq.com", "https://www.la-fabriq.com"] }))
 } else {
-    app.use(cors({ credentials: true, origin: "http://localhost:3000" }))
+    app.use(cors({ credentials: true, origin: "http://192.168.1.8:3000" }))
 }
 app.use(express.json())
-app.use(session({
-    secret: SECRET_SESSION,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        httpOnly: false
-    }
-}))
 app.use("/images/creations/", express.static("creations/"))
 
 

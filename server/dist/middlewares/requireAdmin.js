@@ -8,14 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 function requireAdmin(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        if (!(typeof req.session.adminConnected === "boolean" && req.session.adminConnected === true)) {
-            res.status(401).send("Vous n'êtes pas connecté");
-            return;
+        // Récupérez le JWT de l'en-tête Authorization
+        const authHeader = req.headers.authorization;
+        const token = authHeader && authHeader.split(' ')[1];
+        if (!token) {
+            return res.sendStatus(401); // non autorisé si le JWT est manquant
         }
-        next();
+        try {
+            jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+            next();
+        }
+        catch (err) {
+            res.status(401).send("Vous n'êtes pas connecté à l'espace d'administration");
+        }
     });
 }
 exports.default = requireAdmin;

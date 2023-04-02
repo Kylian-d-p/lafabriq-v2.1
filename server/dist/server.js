@@ -12,7 +12,6 @@ const getCategories_1 = __importDefault(require("./controllers/getCategories"));
 const getProduct_1 = __importDefault(require("./controllers/getProduct"));
 const getThreeAvailableProducts_1 = __importDefault(require("./controllers/getThreeAvailableProducts"));
 const getCategoryDisplayName_1 = __importDefault(require("./controllers/getCategoryDisplayName"));
-const express_session_1 = __importDefault(require("express-session"));
 const adminLogin_1 = __importDefault(require("./controllers/adminLogin"));
 const isAdminConnected_1 = __importDefault(require("./controllers/isAdminConnected"));
 const sharp_1 = __importDefault(require("sharp"));
@@ -36,7 +35,6 @@ const MYSQL_HOST = process.env.MYSQL_HOST || "";
 const MYSQL_USER = process.env.MYSQL_USER || "";
 const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "";
 const DB_NAME = process.env.DB_NAME || "";
-const SECRET_SESSION = process.env.SECRET_SESSION || "";
 const app = (0, express_1.default)();
 // Connexion à la base de données
 const db = mysql_1.default.createConnection({
@@ -52,23 +50,14 @@ db.connect(function (err) {
     }
     (0, globalFunc_1.log)(`Connecté avec succès à la base de données ${DB_NAME}`, false);
 });
+app.set("trust proxy", 1);
 if (process.env.ENVIRONMENT === "prod") {
-    app.use((0, cors_1.default)({ credentials: true, origin: ["https://la-fabriq.com", "http://localhost:3000"] }));
+    app.use((0, cors_1.default)({ credentials: true, origin: ["https://la-fabriq.com", "https://www.la-fabriq.com"] }));
 }
 else {
-    app.use((0, cors_1.default)({ credentials: true, origin: "http://localhost:3000" }));
+    app.use((0, cors_1.default)({ credentials: true, origin: "http://192.168.1.8:3000" }));
 }
 app.use(express_1.default.json());
-app.use((0, express_session_1.default)({
-    secret: SECRET_SESSION,
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7,
-        httpOnly: false
-    }
-}));
 app.use("/images/creations/", express_1.default.static("creations/"));
 app.post("/getProducts", getProducts_1.default);
 app.post("/getCategories", getCategories_1.default);

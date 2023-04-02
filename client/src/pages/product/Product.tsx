@@ -28,7 +28,7 @@ export default function Product() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        fetch(v.serverUrl + "getProduct", { method: "POST", credentials: "include", body: JSON.stringify({ "id": params.id }), headers: { 'Content-Type': 'application/json' } }).then((res) => {
+        fetch(v.serverUrl + "getProduct", { method: "POST", credentials: "include", mode: "cors", body: JSON.stringify({ "id": params.id }), headers: { 'Content-Type': 'application/json' } }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response: getProductRes) => {
                     var final_pictures = []

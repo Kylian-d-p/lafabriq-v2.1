@@ -9,12 +9,12 @@ Définir ces variables dans un fichier .env à placer dans le dossier racine:
 - `MYSQL_USER` (string) Nom d'utilisateur pour se connecter à la base de donnée
 - `MYSQL_PASSWORD` (string) Mot de passe pour se connecter à la base de donnée
 - `MYSQL_HOST` (string) IP de l'hôte de la base de donnée
-- `SECRET_SESSION` (string) Chaine de caractère secrète pour la sécurité des sessions
 - `ADMIN_PASSWORD` (string) Mot de passe pour se connecter à l'interface d'administration du site
 - `ADMIN_USERNAME` (string) Identifiant pour se connecter à l'interface d'administration du site
 - `ENVIRONMENT` ('prod' | 'dev') indique l'environnement d'exécution
 - `SSL_KEY_PATH` (string) chemin vers la clé SSL
 - `SSL_CERT_PATH` (string) chemin vers le certificat SSL
+- `JWT_SECRET` (string) chaîne de caractère pour sécuriser les JWT
 
 Pour exécuter et ouvrir le site dans un espace de production, il faut :
 - Installer node.js sur votre machine
