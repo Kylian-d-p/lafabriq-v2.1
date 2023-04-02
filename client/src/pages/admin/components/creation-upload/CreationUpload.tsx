@@ -67,7 +67,7 @@ export default function CreationUpload(props: CreationUploadProps) {
 
     const handleFileSelectionClick = () => {
         document.getElementById("files-already-uploaded-container")?.classList.add("opened")
-        fetch(v.serverUrl + "getAllPictures", { method: "POST", credentials: "include", mode: "cors" }).then((res) => {
+        fetch(v.serverUrl + "getAllPictures", { method: "POST", credentials: "include", mode: "cors", headers: { "Authorization": "Bearer " + localStorage.getItem("jwt") } }).then((res) => {
             if (res.status === 200) {
                 setuploadedFilesError(false)
                 res.json().then((response) => {

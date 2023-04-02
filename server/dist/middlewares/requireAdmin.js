@@ -19,7 +19,7 @@ function requireAdmin(req, res, next) {
         const authHeader = req.headers.authorization;
         const token = authHeader && authHeader.split(' ')[1];
         if (!token) {
-            return res.sendStatus(401); // non autorisé si le JWT est manquant
+            return res.sendStatus(401).send("JWT manquant"); // non autorisé si le JWT est manquant
         }
         try {
             jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
