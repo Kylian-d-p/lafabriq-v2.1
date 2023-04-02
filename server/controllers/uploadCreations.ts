@@ -77,11 +77,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                         const fileSuccess = filesSuccess[i];
                         if (!fileSuccess[0] || !fileSuccess[1]) {
                             filesError.push(files[i].filename)
-                        }
-                        if (!fileSuccess[0] && fileSuccess[1]) {
                             fs.unlink(path.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { })
-                        }
-                        if (fileSuccess[0] && !fileSuccess[1]) {
                             fs.unlink(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { })
                         }
                     }

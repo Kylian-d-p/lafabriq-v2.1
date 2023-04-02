@@ -93,11 +93,7 @@ function uploadCreations(req, res) {
                             const fileSuccess = filesSuccess[i];
                             if (!fileSuccess[0] || !fileSuccess[1]) {
                                 filesError.push(files[i].filename);
-                            }
-                            if (!fileSuccess[0] && fileSuccess[1]) {
                                 fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { });
-                            }
-                            if (fileSuccess[0] && !fileSuccess[1]) {
                                 fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { });
                             }
                         }
