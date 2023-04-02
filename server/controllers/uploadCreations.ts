@@ -22,7 +22,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                         do {
                             count++
                             var picturePath = crypto.randomUUID() + crypto.randomUUID() + crypto.randomUUID() + crypto.randomUUID()
-                            checkIfPathExist = fs.existsSync(path.join(__dirname, "../../../creations/" + picturePath))
+                            checkIfPathExist = fs.existsSync(path.join(__dirname, "../../creations/" + picturePath))
                         } while (checkIfPathExist && count <= 10)
                         if (count >= 12) {
                             readyToUpload = false
@@ -48,14 +48,14 @@ export default async function uploadCreations(req: Request, res: Response) {
                                 }
                                 await new Promise<void>((resolve) => {
                                     image = image.rotate(rotate);
-                                    image.webp({ quality: 60 }).toFile(path.join(__dirname, "../../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
+                                    image.webp({ quality: 60 }).toFile(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
                                         if (err) {
                                             log(err, true)
                                             filesSuccess.push([false, false])
                                             resolve()
                                         } else {
                                             filesSuccess.push([true])
-                                            image.webp().toFile(path.join(__dirname, "../../../creations/" + filesPath[i] + ".webp"), (err, info) => {
+                                            image.webp().toFile(path.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), (err, info) => {
                                                 resolve()
                                                 if (err) {
                                                     log(err, true);
@@ -80,9 +80,9 @@ export default async function uploadCreations(req: Request, res: Response) {
                                 filesError.push(files[i].filename)
                             }
                             if (!fileSuccess[0] && fileSuccess[1]) {
-                                fs.unlink(path.join(__dirname, "../../../creations/" + filesPath[i] + ".webp"), () => { })
+                                fs.unlink(path.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { })
                             } else if (fileSuccess[0] && !fileSuccess[1]) {
-                                fs.unlink(path.join(__dirname, "../../../creations/resized/" + filesPath[i] + ".webp"), () => { })
+                                fs.unlink(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { })
                             }
                         }
                         if (filesError.length == 0) {

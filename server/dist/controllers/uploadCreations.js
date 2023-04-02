@@ -34,7 +34,7 @@ function uploadCreations(req, res) {
                             do {
                                 count++;
                                 var picturePath = crypto_1.default.randomUUID() + crypto_1.default.randomUUID() + crypto_1.default.randomUUID() + crypto_1.default.randomUUID();
-                                checkIfPathExist = fs_1.default.existsSync(path_1.default.join(__dirname, "../../../creations/" + picturePath));
+                                checkIfPathExist = fs_1.default.existsSync(path_1.default.join(__dirname, "../../creations/" + picturePath));
                             } while (checkIfPathExist && count <= 10);
                             if (count >= 12) {
                                 readyToUpload = false;
@@ -63,7 +63,7 @@ function uploadCreations(req, res) {
                                     }
                                     yield new Promise((resolve) => {
                                         image = image.rotate(rotate);
-                                        image.webp({ quality: 60 }).toFile(path_1.default.join(__dirname, "../../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
+                                        image.webp({ quality: 60 }).toFile(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
                                             if (err) {
                                                 (0, globalFunc_1.log)(err, true);
                                                 filesSuccess.push([false, false]);
@@ -71,7 +71,7 @@ function uploadCreations(req, res) {
                                             }
                                             else {
                                                 filesSuccess.push([true]);
-                                                image.webp().toFile(path_1.default.join(__dirname, "../../../creations/" + filesPath[i] + ".webp"), (err, info) => {
+                                                image.webp().toFile(path_1.default.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), (err, info) => {
                                                     resolve();
                                                     if (err) {
                                                         (0, globalFunc_1.log)(err, true);
@@ -96,10 +96,10 @@ function uploadCreations(req, res) {
                                     filesError.push(files[i].filename);
                                 }
                                 if (!fileSuccess[0] && fileSuccess[1]) {
-                                    fs_1.default.unlink(path_1.default.join(__dirname, "../../../creations/" + filesPath[i] + ".webp"), () => { });
+                                    fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { });
                                 }
                                 else if (fileSuccess[0] && !fileSuccess[1]) {
-                                    fs_1.default.unlink(path_1.default.join(__dirname, "../../../creations/resized/" + filesPath[i] + ".webp"), () => { });
+                                    fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { });
                                 }
                             }
                             if (filesError.length == 0) {

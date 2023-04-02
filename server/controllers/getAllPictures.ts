@@ -4,7 +4,7 @@ import path from 'path';
 import { log } from '../globalFunc';
 
 async function getAllPictures(req: Request, res: Response) {
-    const folderPath = path.join(__dirname, '../../../creations/');
+    const folderPath = path.join(__dirname, '../../creations/');
     try {
         const elements = await new Promise<string[]>((resolve, reject) => {
             fs.readdir(folderPath, (err, elements) => {

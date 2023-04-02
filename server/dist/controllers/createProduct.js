@@ -20,7 +20,7 @@ const globalFunc_1 = require("../globalFunc");
 function insertProduct(title, available, price, category, description, pictures) {
     server_1.default.db.query(`INSERT INTO products(title, available, price, category, description) VALUES (${mysql_1.default.escape(title)}, ${mysql_1.default.escape(available)}, ${mysql_1.default.escape(price)}, ${mysql_1.default.escape(category)}, ${mysql_1.default.escape(description.replace(/\n/g, "<br/>"))})`, (err, result) => __awaiter(this, void 0, void 0, function* () {
         for (var picture of pictures) {
-            var fileExists = yield checkFileExists(path_1.default.join(__dirname, '../../../creations/'));
+            var fileExists = yield checkFileExists(path_1.default.join(__dirname, '../../creations/'));
             if (fileExists) {
                 server_1.default.db.query(`INSERT INTO products_pictures(product_id, picture_path) VALUES(${mysql_1.default.escape(result.insertId)}, ${mysql_1.default.escape(picture)})`);
             }

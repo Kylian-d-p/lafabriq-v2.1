@@ -8,7 +8,7 @@ import { displayNameToName } from "../globalFunc"
 function insertProduct(title: string, available: boolean, price: number, category: number, description: string, pictures: Array<string>) {
     db.db.query(`INSERT INTO products(title, available, price, category, description) VALUES (${mysql.escape(title)}, ${mysql.escape(available)}, ${mysql.escape(price)}, ${mysql.escape(category)}, ${mysql.escape(description.replace(/\n/g, "<br/>"))})`, async (err, result) => {
         for (var picture of pictures) {
-            var fileExists = await checkFileExists(path.join(__dirname, '../../../creations/'))
+            var fileExists = await checkFileExists(path.join(__dirname, '../../creations/'))
             if (fileExists) {
                 db.db.query(`INSERT INTO products_pictures(product_id, picture_path) VALUES(${mysql.escape(result.insertId)}, ${mysql.escape(picture)})`)
             }
