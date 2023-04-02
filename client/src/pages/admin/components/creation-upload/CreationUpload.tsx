@@ -14,12 +14,15 @@ export default function CreationUpload(props: CreationUploadProps) {
     const [imageContainerText, setimageContainerText] = useState<string>("Aucune image choisie")
     const [uploadedFiles, setuploadedFiles] = useState<Array<string>>([])
     const [uploadedFilesError, setuploadedFilesError] = useState<boolean>(false)
+    const [uploadErrorText, setuploadErrorText] = useState<string>("")
 
     const handleUploadFilesClick = () => {
         fileInputRef.current?.click()
     }
 
     const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setimageContainerText("Import en cours...")
+        setuploadErrorText("")
         if (!e.target.files) {
             return;
         }
@@ -41,6 +44,8 @@ export default function CreationUpload(props: CreationUploadProps) {
         }).then((res) => {
             setuploading(false)
             if (res.status === 200) {
+                setimageContainerText("Aucune image choisie")
+                setuploadErrorText("")
                 res.json().then((response) => {
                     const newPictures = props.pictures.slice()
                     for (const picture of response) {
@@ -52,13 +57,25 @@ export default function CreationUpload(props: CreationUploadProps) {
             } else {
                 res.json().then((response) => {
                     setimageContainerText(response.message)
-                    if (response.infos) {
-                        var imageContainerTextTemp = "Les fichiers suivants n'on pas pu être importés : "
-                        for (let i = 0; i < response.infos.length; i++) {
-                            const filename = response.infos[i];
+                    setuploadErrorText(response.message)
+                    if (response.errors) {
+                        var imageContainerTextTemp = ""
+                        for (let i = 0; i < response.errors.length; i++) {
+                            const filename = response.errors[i];
                             imageContainerTextTemp += filename + ","
                         }
+                        if (response.errors.length == 1) {
+                            imageContainerTextTemp = "Le fichier " + imageContainerTextTemp.slice(0, imageContainerTextTemp.length - 1) + " n'a pas pu être importé."
+                        } else {
+                            imageContainerTextTemp = "Les fichiers " + imageContainerTextTemp.slice(0, imageContainerTextTemp.length - 1) + " n'ont pas pu être importés."
+                        }
+                        setuploadErrorText(imageContainerTextTemp)
                         setimageContainerText(imageContainerTextTemp)
+                        const newPictures = props.pictures.slice()
+                        for (const picture of response.success) {
+                            newPictures.push(picture)
+                        }
+                        props.setpictures(newPictures)
                     }
                 })
             }
@@ -96,10 +113,12 @@ export default function CreationUpload(props: CreationUploadProps) {
     }
 
     const handleDeleteClick = (file: string) => {
-        if (props.pictures.indexOf(file) >= 0) {
-            const newPictures = props.pictures.slice()
-            newPictures.splice(props.pictures.indexOf(file), 1)
-            props.setpictures(newPictures)
+        if (!uploading) {
+            if (props.pictures.indexOf(file) >= 0) {
+                const newPictures = props.pictures.slice()
+                newPictures.splice(props.pictures.indexOf(file), 1)
+                props.setpictures(newPictures)
+            }
         }
     }
 
@@ -107,8 +126,8 @@ export default function CreationUpload(props: CreationUploadProps) {
         <>
             <fieldset className="creation-upload">
                 <legend>Images</legend>
-                <div className="images-container">
-                    {props.pictures.length === 0 ? (uploading ? <p className="no-pictures-uploaded">Import des images en cours...</p> : <p className="no-pictures-uploaded">{imageContainerText}</p>) :
+                <div className={`images-container ${uploading ? "uploading" : ""}`}>
+                    {props.pictures.length === 0 ? <p className="no-pictures-uploaded">{imageContainerText}</p> :
                         props.pictures.map((picture) => {
                             return (
                                 <div className="preview-pictures-container" key={picture}>
@@ -119,8 +138,9 @@ export default function CreationUpload(props: CreationUploadProps) {
                         })
                     }
                 </div>
-                <button onClick={handleUploadFilesClick} className="upload-btn shadow">Importer des images depuis l'ordinateur</button>
-                <button onClick={handleFileSelectionClick} className="selection-btn shadow">Utiliser une image déjà existante</button>
+                {uploadErrorText ? <p className="uploadErrorText">{uploadErrorText}</p> : ""}
+                <button onClick={handleUploadFilesClick} className="upload-btn shadow" disabled={Boolean(uploading)}>Importer des images depuis l'ordinateur</button>
+                <button onClick={handleFileSelectionClick} className="selection-btn shadow" disabled={Boolean(uploading)}>Utiliser une image déjà existante</button>
                 <input type="file" ref={fileInputRef} accept="image/png, image/jpeg" className="input-file" onChange={handleFileChange} multiple />
             </fieldset>
             <div id="files-already-uploaded-container" className="shadow">

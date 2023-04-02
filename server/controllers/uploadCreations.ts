@@ -35,7 +35,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                         const file = files[i];
                         if (filesPath[i] !== undefined && typeof filesPath[i] === "string") {
                             const { buffer } = file
-                            var image = sharp(buffer)
+                            var image = sharp(buffer, { failOn: "truncated" })
                             const metadata = await image.metadata();
                             let rotate = 0;
                             if (metadata.orientation === 6) {
@@ -76,7 +76,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                     for (let i = 0; i < filesSuccess.length; i++) {
                         const fileSuccess = filesSuccess[i];
                         if (!fileSuccess[0] || !fileSuccess[1]) {
-                            filesError.push(files[i].filename)
+                            filesError.push(files[i].originalname)
                             fs.unlink(path.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { })
                             fs.unlink(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { })
                         }
@@ -87,7 +87,13 @@ export default async function uploadCreations(req: Request, res: Response) {
                         }
                         res.status(200).json(filesPath)
                     } else {
-                        res.status(500).json({ "message": "Une erreur interne est survenue", "infos": filesError })
+                        var filesUploaded: Array<string> = []
+                        for (let i = 0; i < filesPath.length; i++) {
+                            if (filesSuccess[i][0] && filesSuccess[i][1]) {
+                                filesUploaded.push(filesPath[i] + ".webp")
+                            }
+                        }
+                        res.status(500).json({ "message": "Une erreur interne est survenue", "errors": filesError, "success": filesUploaded })
                     }
                 } else {
                     res.status(500).json({ "message": "Une erreur interne est survenue, réessayez plus tard" })

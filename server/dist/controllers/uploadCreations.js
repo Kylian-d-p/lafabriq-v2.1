@@ -48,7 +48,7 @@ function uploadCreations(req, res) {
                             const file = files[i];
                             if (filesPath[i] !== undefined && typeof filesPath[i] === "string") {
                                 const { buffer } = file;
-                                var image = (0, sharp_1.default)(buffer);
+                                var image = (0, sharp_1.default)(buffer, { failOn: "truncated" });
                                 const metadata = yield image.metadata();
                                 let rotate = 0;
                                 if (metadata.orientation === 6) {
@@ -92,7 +92,7 @@ function uploadCreations(req, res) {
                         for (let i = 0; i < filesSuccess.length; i++) {
                             const fileSuccess = filesSuccess[i];
                             if (!fileSuccess[0] || !fileSuccess[1]) {
-                                filesError.push(files[i].filename);
+                                filesError.push(files[i].originalname);
                                 fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { });
                                 fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { });
                             }
@@ -104,7 +104,13 @@ function uploadCreations(req, res) {
                             res.status(200).json(filesPath);
                         }
                         else {
-                            res.status(500).json({ "message": "Une erreur interne est survenue", "infos": filesError });
+                            var filesUploaded = [];
+                            for (let i = 0; i < filesPath.length; i++) {
+                                if (filesSuccess[i][0] && filesSuccess[i][1]) {
+                                    filesUploaded.push(filesPath[i] + ".webp");
+                                }
+                            }
+                            res.status(500).json({ "message": "Une erreur interne est survenue", "errors": filesError, "success": filesUploaded });
                         }
                     }
                     else {
