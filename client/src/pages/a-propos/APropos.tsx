@@ -4,9 +4,10 @@ export default function APropos() {
     return (
         <div className="main-div" id="a-propos">
             <h1>LaFabriq</h1>
-            <p>Notre entreprise existe depuis décembre 2019</p>
+            <p>Mon entreprise existe depuis décembre 2019</p>
             <p>Elle se situe 4 allée Euromédoc, 33160 à Saint-Aubin-de-médoc</p>
-            <p>Pour toutes demandes de renseignements, n'hésitez pas à prendre contact avec nous par mail <a href="mailto:contact@la-fabriq.com">contact@la-fabriq.com</a> ou bien à nous appeler au <a href="tel:0698590869">06 98 59 08 69</a>.</p>
+            <p>Pour toutes demandes de renseignements, n'hésitez pas à me contacter par mail <a href="mailto:contact@la-fabriq.com">contact@la-fabriq.com</a> ou bien à m'appeler au <a href="tel:0698590869">06 98 59 08 69</a>.</p>
+            <p>N° Siret : 83360704700010</p>
             <h2>Propriété  Intellectuelle</h2>
             <p>L'accès au site {document.location.host} vous confère un droit d’usage privé et non exclusif sur ce site.</p>
             <p>L'ensemble des éléments édités sur ce site, incluant notamment les textes, photographies, infographies, logos, marques, etc... constituent des œuvres au sens du Code de la Propriété Intellectuelle.</p>

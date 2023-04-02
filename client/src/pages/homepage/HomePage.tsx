@@ -81,15 +81,14 @@ export default function HomePage() {
                     <img src="/images/img_presentation_8.jpeg" alt="Table" className="homepage-image homepage-img-2" />
                 </div>
                 <div className="homepage-legend-text-container">
-                    <p className="homepage-text">Le bois est notre passion.</p>
-                    <p className="homepage-text">Nous créons des pièces uniques :
-                        tables en bois massif, tables basses et consoles pour que votre intérieur soit original.</p>
-                    <p className="homepage-text">Toutes nos créations sont recyclées.</p>
+                    <p className="homepage-text">Le bois est ma passion.</p>
+                    <p className="homepage-text">Je crée des pièces uniques : tables en bois massif, tables basses et consoles pour que votre intérieur soit original.</p>
+                    <p className="homepage-text">Toutes mes créations sont recyclées.</p>
                     <p className="homepage-text">Elles ont une âme, un vécu, du caractère.</p>
                     <p className="homepage-text">Retrouvez aussi des objets et du mobilier vintage, rare ou d'exception.</p>
                 </div>
             </div>
-            <h2 id="homepage--text" className="other-font">Découvrez notre boutique</h2>
+            <h2 id="homepage--text" className="other-font">Découvrez ma boutique</h2>
             <div className="homepage-cards">
                 {products.map((product) => {
                     return (
