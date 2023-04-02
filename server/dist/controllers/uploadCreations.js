@@ -64,7 +64,7 @@ function uploadCreations(req, res) {
                                     image = image.rotate(rotate);
                                     image.webp({ quality: 60 }).toFile(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
                                         if (err) {
-                                            (0, globalFunc_1.log)(err, true);
+                                            (0, globalFunc_1.log)("Erreur lors de l'upload de l'image en taille réduite : " + err, true);
                                             filesSuccess.push([false, false]);
                                             resolve();
                                         }
@@ -73,7 +73,7 @@ function uploadCreations(req, res) {
                                             image.webp().toFile(path_1.default.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), (err, info) => {
                                                 resolve();
                                                 if (err) {
-                                                    (0, globalFunc_1.log)(err, true);
+                                                    (0, globalFunc_1.log)("Erreur lors de l'upload de l'image en taille réelle : " + err, true);
                                                     filesSuccess[i].push(false);
                                                 }
                                                 else {
@@ -97,7 +97,7 @@ function uploadCreations(req, res) {
                             if (!fileSuccess[0] && fileSuccess[1]) {
                                 fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { });
                             }
-                            else if (fileSuccess[0] && !fileSuccess[1]) {
+                            if (fileSuccess[0] && !fileSuccess[1]) {
                                 fs_1.default.unlink(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { });
                             }
                         }

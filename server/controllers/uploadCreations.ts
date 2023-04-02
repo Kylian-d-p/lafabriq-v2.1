@@ -49,7 +49,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                                 image = image.rotate(rotate);
                                 image.webp({ quality: 60 }).toFile(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
                                     if (err) {
-                                        log(err, true)
+                                        log("Erreur lors de l'upload de l'image en taille réduite : " + err, true)
                                         filesSuccess.push([false, false])
                                         resolve()
                                     } else {
@@ -57,7 +57,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                                         image.webp().toFile(path.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), (err, info) => {
                                             resolve()
                                             if (err) {
-                                                log(err, true);
+                                                log("Erreur lors de l'upload de l'image en taille réelle : " + err, true);
 
                                                 filesSuccess[i].push(false)
                                             } else {
@@ -80,14 +80,14 @@ export default async function uploadCreations(req: Request, res: Response) {
                         }
                         if (!fileSuccess[0] && fileSuccess[1]) {
                             fs.unlink(path.join(__dirname, "../../creations/" + filesPath[i] + ".webp"), () => { })
-                        } else if (fileSuccess[0] && !fileSuccess[1]) {
+                        }
+                        if (fileSuccess[0] && !fileSuccess[1]) {
                             fs.unlink(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), () => { })
                         }
                     }
                     if (filesError.length == 0) {
                         for (let i = 0; i < filesPath.length; i++) {
                             filesPath[i] = filesPath[i] + ".webp"
-
                         }
                         res.status(200).json(filesPath)
                     } else {
