@@ -5,6 +5,9 @@ import Select from "react-select"
 import AdminCard from "../components/admin-card/AdminCard"
 import v from "../../../globalVariables"
 
+var currentCategory: string = ""
+var currentScroll: number = 0
+
 export default function Edit() {
     const [products, setproducts] = useState<Array<{ id: number, title: string, available: boolean, price: number, first_picture: string }>>([])
     const [categories, setcategories] = useState<Array<{ value: string, label: string }>>()
@@ -21,13 +24,35 @@ export default function Edit() {
                     }
                     setcategories(catTemp)
                     setcategoriesLoaded(true)
+                    if (currentCategory !== "") {
+                        fetch(v.serverUrl + "getProducts", { method: "POST", credentials: "include", mode: "cors", headers: { "Content-type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwt") }, body: JSON.stringify({ "category": currentCategory }) }).then((res) => {
+                            if (res.status === 200) {
+                                res.json().then((response) => {
+                                    setproductsLoading(false)
+                                    setproducts(response)
+                                    setTimeout(() => {
+                                        window.scrollTo(0, currentScroll)
+                                    }, 50)
+                                })
+                            }
+                        })
+                    }
                 })
             }
         })
+
+        const scrollListener = () => {
+            currentScroll = window.scrollY
+        }
+        document.addEventListener("scroll", scrollListener)
+        return () => {
+            document.removeEventListener("scroll", scrollListener)
+        }
     }, [])
 
     const handleCategoryChange = (e: any) => {
         setproductsLoading(true)
+        currentCategory = e.value
         fetch(v.serverUrl + "getProducts", { method: "POST", credentials: "include", mode: "cors", headers: { "Content-type": "application/json", "Authorization": "Bearer " + localStorage.getItem("jwt") }, body: JSON.stringify({ "category": e.value }) }).then((res) => {
             if (res.status === 200) {
                 res.json().then((response) => {

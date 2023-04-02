@@ -49,6 +49,7 @@ function uploadCreations(req, res) {
                             if (filesPath[i] !== undefined && typeof filesPath[i] === "string") {
                                 const { buffer } = file;
                                 var image = (0, sharp_1.default)(buffer, { failOn: "truncated" });
+                                var image_resized = (0, sharp_1.default)(buffer, { failOn: "truncated" });
                                 const metadata = yield image.metadata();
                                 let rotate = 0;
                                 if (metadata.orientation === 6) {
@@ -62,7 +63,9 @@ function uploadCreations(req, res) {
                                 }
                                 yield new Promise((resolve) => {
                                     image = image.rotate(rotate);
-                                    image.webp({ quality: 60 }).toFile(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
+                                    image_resized = image_resized.rotate(rotate);
+                                    image_resized.resize(500, 500, { fit: "inside" });
+                                    image_resized.webp({ quality: 80 }).toFile(path_1.default.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
                                         if (err) {
                                             (0, globalFunc_1.log)("Erreur lors de l'upload de l'image en taille réduite : " + err, true);
                                             filesSuccess.push([false, false]);

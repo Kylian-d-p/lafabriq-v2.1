@@ -36,6 +36,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                         if (filesPath[i] !== undefined && typeof filesPath[i] === "string") {
                             const { buffer } = file
                             var image = sharp(buffer, { failOn: "truncated" })
+                            var image_resized = sharp(buffer, { failOn: "truncated" })
                             const metadata = await image.metadata();
                             let rotate = 0;
                             if (metadata.orientation === 6) {
@@ -47,7 +48,9 @@ export default async function uploadCreations(req: Request, res: Response) {
                             }
                             await new Promise<void>((resolve) => {
                                 image = image.rotate(rotate);
-                                image.webp({ quality: 60 }).toFile(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
+                                image_resized = image_resized.rotate(rotate);
+                                image_resized.resize(500, 500, { fit: "inside" })
+                                image_resized.webp({ quality: 80 }).toFile(path.join(__dirname, "../../creations/resized/" + filesPath[i] + ".webp"), (err, info) => {
                                     if (err) {
                                         log("Erreur lors de l'upload de l'image en taille réduite : " + err, true)
                                         filesSuccess.push([false, false])
