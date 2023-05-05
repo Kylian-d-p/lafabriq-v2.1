@@ -1,5 +1,5 @@
 const variables = {
-    "serverUrl": "https://api.kdprod.fr:3002/"
+    "serverUrl": "https://api.mywebdream.fr:3002/"
     // "serverUrl": "http://localhost/"
 }
 
