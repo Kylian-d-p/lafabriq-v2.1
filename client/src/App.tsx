@@ -26,6 +26,7 @@ export default function App() {
             setapiAvailable(false)
         }, 5000)
         fetch(v.serverUrl + "apiAvailable", { method: "POST", credentials: "include", mode: "cors", signal: controller.signal }).then((res) => {
+            clearTimeout(timeout)
             if (res.status === 200) {
                 setapiAvailable(true)
             } else {
