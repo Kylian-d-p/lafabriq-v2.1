@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/static/css/main.e97dc274.css",
-    "main.js": "/static/js/main.fcd692d6.js",
+    "main.js": "/static/js/main.b7d99385.js",
     "static/media/AkayaKanadaka-Regular.ttf": "/static/media/AkayaKanadaka-Regular.00285b03cbbe370b4c8a.ttf",
     "static/media/Figtree-VariableFont_wght.ttf": "/static/media/Figtree-VariableFont_wght.c24c53f416daaa0310a4.ttf",
     "index.html": "/index.html",
     "main.e97dc274.css.map": "/static/css/main.e97dc274.css.map",
-    "main.fcd692d6.js.map": "/static/js/main.fcd692d6.js.map"
+    "main.b7d99385.js.map": "/static/js/main.b7d99385.js.map"
   },
   "entrypoints": [
     "static/css/main.e97dc274.css",
-    "static/js/main.fcd692d6.js"
+    "static/js/main.b7d99385.js"
   ]
 }
