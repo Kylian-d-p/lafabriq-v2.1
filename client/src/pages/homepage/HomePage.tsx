@@ -67,7 +67,6 @@ export default function HomePage() {
     return (
         <div id="homepage">
             <div id="landing-div">
-                {/* <h1 id='homepage-landing-title'>La Fabriq</h1> */}
                 <img id='homepage-landing-logo' src="/images/full_Logo.jpg" alt="Logo" />
                 <div className="landing-page-call-to-action">
                     <p className='other-font'>Découvrez nos créations</p>

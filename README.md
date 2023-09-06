@@ -1,8 +1,6 @@
 # lafabriq-v2
 Deuxième version du site <a href="https://la-fabriq.com">la-fabriq.com</a>
 
-Cette version n'est pas encore en ligne mais devrait l'être sous peu
-
 Définir ces variables dans un fichier .env à placer dans le dossier racine: 
 - `PORT` (integer) Port sur lequel le serveur écoutera
 - `DB_NAME` (string) Nom de la base de donnée

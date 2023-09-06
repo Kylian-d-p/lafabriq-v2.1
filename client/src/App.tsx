@@ -16,12 +16,21 @@ import v from "./globalVariables"
 import { NotAvailable } from "./pages/not-available/NotAvailable";
 
 export default function App() {
-    const [apiAvailable, setapiAvailable] = useState<boolean>(false)
+    const [apiAvailable, setapiAvailable] = useState<boolean>(true)
 
     useEffect(() => {
-        fetch(v.serverUrl + "apiAvailable", { method: "POST", credentials: "include", mode: "cors" }).then((res) => {
+        // AbortController to cancel fetch request if it takes too long
+        const controller = new AbortController()
+        const timeout = setTimeout(() => {
+            controller.abort()
+            setapiAvailable(false)
+        }, 5000)
+        fetch(v.serverUrl + "apiAvailable", { method: "POST", credentials: "include", mode: "cors", signal: controller.signal }).then((res) => {
+            clearTimeout(timeout)
             if (res.status === 200) {
                 setapiAvailable(true)
+            } else {
+                setapiAvailable(false)
             }
         })
     }, [])
