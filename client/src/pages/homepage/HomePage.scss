@@ -7,19 +7,13 @@ div#homepage {
     scroll-behavior: smooth;
 
     div#landing-div {
-        position: relative;
         width: 100%;
-        height: 100vh;
-        overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
-
-        img {
-            min-width: 100%;
-            min-height: 100%;
-            object-fit: cover;
-        }
+        flex-direction: column;
+        gap: 70px;
+        padding: 60px 0;
 
         h1#homepage-landing-title {
             position: absolute;
@@ -32,15 +26,16 @@ div#homepage {
             width: 100%;
         }
 
+        img#homepage-landing-logo {
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px v.$main_color_shadow;
+        }
+
         div.landing-page-call-to-action {
-            position: absolute;
-            width: 100px;
-            width: 100%;
-            top: 75%;
             text-align: center;
 
             p {
-                color: #fff;
                 font-size: 25px;
                 margin: 0;
             }
@@ -48,7 +43,7 @@ div#homepage {
             svg.landing-arrow-call-to-action {
                 cursor: pointer;
                 font-size: 100px;
-                color: white;
+                color: #000;
                 animation-name: callToAction;
                 animation-duration: 5s;
                 animation-timing-function: ease-in-out;
@@ -242,14 +237,6 @@ div#homepage {
                 img.homepage-img-2 {
                     display: none;
                 }
-            }
-        }
-
-        div#landing-div {
-            height: 70vh;
-
-            h1#homepage-landing-title {
-                font-size: 100px;
             }
         }
     }

@@ -37,25 +37,20 @@ const app: Express = express()
 
 
 // Connexion à la base de données
-const db = mysql.createConnection({
+const db = mysql.createPool({
     host: MYSQL_HOST,
     user: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: DB_NAME,
+    port: 3306,
     charset: "utf8mb4"
-})
-db.connect(function (err) {
-    if (err) {
-        log(err, true)
-    }
-    log(`Connecté avec succès à la base de données ${DB_NAME}`, false)
 })
 
 app.set("trust proxy", 1)
 if (process.env.ENVIRONMENT === "prod") {
     app.use(cors({ credentials: true, origin: ["https://la-fabriq.com", "https://www.la-fabriq.com"] }))
 } else {
-    app.use(cors({ credentials: true, origin: "http://192.168.1.8:3000" }))
+    app.use(cors({ credentials: true, origin: "http://192.168.1.13:3000" }))
 }
 app.use(express.json())
 app.use("/images/creations/", express.static("creations/"))

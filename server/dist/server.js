@@ -37,25 +37,20 @@ const MYSQL_PASSWORD = process.env.MYSQL_PASSWORD || "";
 const DB_NAME = process.env.DB_NAME || "";
 const app = (0, express_1.default)();
 // Connexion à la base de données
-const db = mysql_1.default.createConnection({
+const db = mysql_1.default.createPool({
     host: MYSQL_HOST,
     user: MYSQL_USER,
     password: MYSQL_PASSWORD,
     database: DB_NAME,
+    port: 3306,
     charset: "utf8mb4"
-});
-db.connect(function (err) {
-    if (err) {
-        (0, globalFunc_1.log)(err, true);
-    }
-    (0, globalFunc_1.log)(`Connecté avec succès à la base de données ${DB_NAME}`, false);
 });
 app.set("trust proxy", 1);
 if (process.env.ENVIRONMENT === "prod") {
     app.use((0, cors_1.default)({ credentials: true, origin: ["https://la-fabriq.com", "https://www.la-fabriq.com"] }));
 }
 else {
-    app.use((0, cors_1.default)({ credentials: true, origin: "http://192.168.1.8:3000" }));
+    app.use((0, cors_1.default)({ credentials: true, origin: "http://192.168.1.13:3000" }));
 }
 app.use(express_1.default.json());
 app.use("/images/creations/", express_1.default.static("creations/"));
