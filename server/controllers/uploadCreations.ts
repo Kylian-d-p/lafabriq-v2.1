@@ -9,7 +9,7 @@ import { log } from "../globalFunc";
 export default async function uploadCreations(req: Request, res: Response) {
     if (!Number.isNaN(req.headers["content-length"])) {
         if (req.files && typeof req.files.length == "number" && req.files.length >= 1) {
-            if (Number(req.headers["content-length"]) <= 4000000 * req.files.length) {
+            if (Number(req.headers["content-length"]) <= 10000000 * req.files.length) {
                 var readyToUpload = true
                 var filesPath: Array<string> = []
                 const files = req.files as Express.Multer.File[];
@@ -102,7 +102,7 @@ export default async function uploadCreations(req: Request, res: Response) {
                     res.status(500).json({ "message": "Une erreur interne est survenue, réessayez plus tard" })
                 }
             } else {
-                res.status(400).json({ "message": "Le fichier ne peut pas dépasser les 4mb" })
+                res.status(400).json({ "message": "Le fichier ne peut pas dépasser les 10mo" })
             }
         }
     } else {
