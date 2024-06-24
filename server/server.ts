@@ -77,20 +77,8 @@ app.all("*", (req: Request, res: Response) => {
     res.status(404).send("Introuvable")
 })
 
-// https server
-if (process.env.ENVIRONMENT === "prod") {
-    const options = {
-        key: fs.readFileSync(process.env.SSL_KEY_PATH),
-        cert: fs.readFileSync(process.env.SSL_CERT_PATH)
-    }
-
-    https.createServer(options, app).listen(PORT, () => {
-        log(`Serveur HTTPS démarré sur le port ${PORT}`, false)
-    })
-} else {
-    app.listen(PORT, () => {
-        log(`Serveur HTTP démarré sur le port ${PORT}`, false)
-    })
-}
+app.listen(PORT, () => {
+    log(`Serveur HTTP démarré sur le port ${PORT}`, false)
+})
 
 export default { db, sharp }
